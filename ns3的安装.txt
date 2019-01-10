@@ -1,0 +1,38 @@
+先配置环境
+编写pre.sh脚本
+#!/bin/sh
+sudo apt-get install gcc g++ python -y
+sudo apt-get install gcc g++ python python-dev -y
+sudo apt-get install mercurial -y
+sudo apt-get install bzr -y
+sudo apt-get install gdb valgrind -y
+sudo apt-get install gsl-bin libgsl0-dev libgsl0ldbl -y
+sudo apt-get install flex bison libfl-dev -y
+sudo apt-get install g++-3.4 gcc-3.4 -y
+sudo apt-get install tcpdump -y
+sudo apt-get install aqlite aqlite3 libsqlite3-dev -y
+sudo apt-get install libxml2 libxml2-dev -y
+sudo apt-get install libgtk2.0-0 libgtk2.0-dev -y
+sudo apt-get install vtun lxc -y            #此行应删除，因为这行可能会抢走IP
+sudo apt-get install uncrustify -y
+sudo apt-get install doxygen grphviz imagemagick -y
+sudo apt-get install texlive texlive-extra-untils texlive-latex-extra -y
+sudo apt-get install python-sphinx dia -y
+sudo apt-get install python-pygraphviz python-kiwi python-pygoocanvas libgoocanvas-dev -y
+sudo apt-get install libboost-signals-dev libboost-filesystem-dev -y
+sudo apt-get install openmpi* -y
+
+保存脚本文件  :wq pre.sh      ->  终端中编译    chmod +x pre.sh    ->运行安装       ./pre.sh
+
+若出现
+E: Unable to lock the administration directory (/var/lib/dpkg/), is another process using it? 
+这句话
+出现这个问题可能是有另外一个程序正在运行，导致资源被锁不可用。而导致资源被锁的原因可能是上次运行安装或更新时没有正常完成，进而出现此状况.
+刚开始试了如下两个：
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+发现没效果，然后有试了下面这组命令：(或者不搞下面命令，用root权限跑一下试试？)
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/lib/dpkg/lock
+sudo dpkg --configure -a
+然后就可以了，至于这些命令什么意思，不知道啊，都是网上搜来的
